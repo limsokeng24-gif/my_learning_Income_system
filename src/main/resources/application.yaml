@@ -1,0 +1,24 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: overseas-language-centre
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/overseas-centre
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa: #this one use for create table auto in database
+#    hibernate:
+#      ddl-auto: update #use create only for testing
+    show-sql: true
+    properties:
+      hibernate:
+        format_aql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:/db.changelog/db.changelog-master.yaml
+    enabled: true
