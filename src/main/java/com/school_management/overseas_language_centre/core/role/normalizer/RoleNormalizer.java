@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.normalizer;
+package com.school_management.overseas_language_centre.core.role.normalizer;
 
 import com.school_management.overseas_language_centre.component.StringNormalizer;
 import com.school_management.overseas_language_centre.dto.request.RoleRequest;

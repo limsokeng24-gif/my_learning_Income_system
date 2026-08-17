@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.specification;
+package com.school_management.overseas_language_centre.core.role.specification;
 
 import java.util.List;
 

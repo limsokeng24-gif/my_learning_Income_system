@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.mapper;
+package com.school_management.overseas_language_centre.core.role.mapper;
 
 import com.school_management.overseas_language_centre.dto.request.RoleRequest;
 import com.school_management.overseas_language_centre.dto.response.RoleResponse;

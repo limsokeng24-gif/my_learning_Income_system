@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.service;
+package com.school_management.overseas_language_centre.core.role.service;
 //this RoleService we create after RoleRepository
 
 

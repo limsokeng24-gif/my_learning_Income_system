@@ -1,8 +1,8 @@
-package com.school_management.overseas_language_centre.validator;
+package com.school_management.overseas_language_centre.core.role.validator;
 
 import com.school_management.overseas_language_centre.dto.request.RoleRequest;
 import com.school_management.overseas_language_centre.entity.Role;
-import com.school_management.overseas_language_centre.repository.RoleRepository;
+import com.school_management.overseas_language_centre.core.role.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

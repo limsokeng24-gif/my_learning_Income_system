@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.controller;
+package com.school_management.overseas_language_centre.core.role.controller;
 
 
 import com.school_management.overseas_language_centre.base.BaseApi;
@@ -7,8 +7,7 @@ import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
 import com.school_management.overseas_language_centre.dto.pagination.PageDTO;
 import com.school_management.overseas_language_centre.dto.request.RoleRequest;
 import com.school_management.overseas_language_centre.dto.response.RoleResponse;
-import com.school_management.overseas_language_centre.entity.Role;
-import com.school_management.overseas_language_centre.service.RoleService;
+import com.school_management.overseas_language_centre.core.role.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.repository;
+package com.school_management.overseas_language_centre.core.role.repository;
 
 import com.school_management.overseas_language_centre.entity.Role;
 import jakarta.persistence.Id;
