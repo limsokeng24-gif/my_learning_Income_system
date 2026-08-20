@@ -1,8 +1,8 @@
-package com.school_management.overseas_language_centre.core.role.validator;
+package com.school_management.overseas_language_centre.feature.core.role.validator;
 
-import com.school_management.overseas_language_centre.dto.request.RoleRequest;
+import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
 import com.school_management.overseas_language_centre.entity.Role;
-import com.school_management.overseas_language_centre.core.role.repository.RoleRepository;
+import com.school_management.overseas_language_centre.feature.core.role.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class RoleValidator { //ke brer validator dermbey pteang ptot data douy o
         if (roleRepository.existsByName(request.getName())) {
             throw new IllegalArgumentException("Role name already exists");
         }
-        if (roleRepository.existsByDescription(request.getDescription())) {
-            throw new IllegalArgumentException("Role description already exists");
-        }
+//        if (roleRepository.existsByDescription(request.getDescription())) {
+//            throw new IllegalArgumentException("Role description already exists");
+//        }
     }
 
     public void validateUpdate (Long id, Role request) {
@@ -27,9 +27,9 @@ public class RoleValidator { //ke brer validator dermbey pteang ptot data douy o
 //        }
         if (roleRepository.existsByNameAndIdNot(request.getName(), id))
             throw new IllegalArgumentException("Role name already exists");
-
-        if (roleRepository.existsByDescriptionAndIdNot(request.getDescription(), id))
-            throw new IllegalArgumentException("Role description already exists");
+//
+//        if (roleRepository.existsByDescriptionAndIdNot(request.getDescription(), id))
+//            throw new IllegalArgumentException("Role description already exists");
     }
 
 

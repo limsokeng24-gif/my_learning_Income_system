@@ -1,18 +1,22 @@
-package com.school_management.overseas_language_centre.core.role.controller;
+package com.school_management.overseas_language_centre.feature.core.role.controller;
 
 
 import com.school_management.overseas_language_centre.base.BaseApi;
 import com.school_management.overseas_language_centre.base.BaseApiPagination;
-import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
 import com.school_management.overseas_language_centre.dto.pagination.PageDTO;
-import com.school_management.overseas_language_centre.dto.request.RoleRequest;
-import com.school_management.overseas_language_centre.dto.response.RoleResponse;
-import com.school_management.overseas_language_centre.core.role.service.RoleService;
+import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
+import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleImportResult;
+import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleResponse;
+import com.school_management.overseas_language_centre.feature.core.role.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -131,5 +135,26 @@ public class RoleController {
                         .data((List<RoleResponse>) pageDTO.getItems())
                         .build()
         );
+    }
+
+    @PostMapping(value = "import-xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RoleImportResult> importXlsx(@RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(roleService.importFromXlsx(file));
+    }
+
+    @GetMapping(value = "export-xlsx", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> exportToXlsx() {
+
+        byte[] file = roleService.exportToXlsx().getFile();
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=roles.xlsx"
+                )
+                .contentType(
+                        MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                )
+                .body(file);
     }
 }

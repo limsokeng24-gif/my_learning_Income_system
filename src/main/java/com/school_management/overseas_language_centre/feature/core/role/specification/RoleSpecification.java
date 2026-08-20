@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.core.role.specification;
+package com.school_management.overseas_language_centre.feature.core.role.specification;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
-import com.school_management.overseas_language_centre.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
 import com.school_management.overseas_language_centre.entity.Role;
 import com.school_management.overseas_language_centre.util.PageUtil;
 public final class RoleSpecification {

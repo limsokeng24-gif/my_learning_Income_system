@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.dto.request;
+package com.school_management.overseas_language_centre.feature.core.role.dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleRequest {
-    @NotBlank(message = "Name is Required") //when we use this validation //we need to put @Valid in roleController for use it
+    @NotBlank(message = "Name cannot be blank") //when we use this validation //we need to put @Valid in roleController for use it
     private String name;
     @Size(max = 255, message = "Description too long")
     private String description;

@@ -1,7 +1,7 @@
-package com.school_management.overseas_language_centre.core.role.normalizer;
+package com.school_management.overseas_language_centre.feature.core.role.normalizer;
 
 import com.school_management.overseas_language_centre.component.StringNormalizer;
-import com.school_management.overseas_language_centre.dto.request.RoleRequest;
+import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
