@@ -22,7 +22,4 @@ public interface RoleService {
     Page<RoleResponse> getAllPagination(RoleFilter filter);
     //getAllPaginationFilter
     // collection framework
-
-    RoleImportResult importFromXlsx(MultipartFile file);
-    RoleExportResult exportToXlsx();
 }

@@ -1,0 +1,19 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 0003-seed-admin-user
+      author: jpa
+      preConditions:
+        onFail: MARK_RAN
+        sqlCheck:
+          expectedResult: 0
+          sql: SELECT COUNT(*) FROM users
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: username, value: "admin@example.com" }
+              - column: { name: nick_name, value: "Admin" }
+              - column: { name: password_hash, value: "$2y$10$cJY3UGLQasoi7MsLS1xvPuxNrjyNH7/b2Z9OvY0DSrq2m/BzDbjNu" }
+              - column: { name: enabled, valueBoolean: true }

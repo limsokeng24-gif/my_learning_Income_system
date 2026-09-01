@@ -9,7 +9,9 @@ import com.school_management.overseas_language_centre.feature.core.role.dto.requ
 import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleImportResult;
 import com.school_management.overseas_language_centre.feature.core.role.dto.response.RoleResponse;
 import com.school_management.overseas_language_centre.feature.core.role.service.RoleService;
+import com.school_management.overseas_language_centre.feature.imports.excel.role.RoleExcelService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,16 +23,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController //use for handle request and response
 @RequestMapping("api/role") // use for create route or URl
 public class RoleController {
     //Dependency rejection
     private final RoleService roleService;
+    private final RoleExcelService roleExcelService;
 
     //jak injection roleService jol knong RoleController
-    RoleController(RoleService roleService){
-        this.roleService = roleService;
-    }
+//    RoleController(RoleService roleService, RoleExcelService roleExcelService){
+//        this.roleService = roleService;
+//        this.roleExcelService = roleExcelService;
+//    }
 
     //DTO : data transfer object /1. transfer from dto => entity /2. transfer from entity to dto
     //now we can call that service for use
@@ -139,13 +144,13 @@ public class RoleController {
 
     @PostMapping(value = "import-xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<RoleImportResult> importXlsx(@RequestParam("file") MultipartFile file) {
-        return ResponseEntity.ok(roleService.importFromXlsx(file));
+        return ResponseEntity.ok(roleExcelService.importFromXlsx(file));
     }
 
     @GetMapping(value = "export-xlsx", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> exportToXlsx() {
 
-        byte[] file = roleService.exportToXlsx().getFile();
+        byte[] file = roleExcelService.exportToXlsx().getFile();
 
         return ResponseEntity.ok()
                 .header(

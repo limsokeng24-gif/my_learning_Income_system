@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db.changelog/schema/0001_create_role_table.yml
+  - include:
+      file: db.changelog/schema/0002_create_user_table.yml
+  - include:
+      file: db.changelog/schema/0003-seed-user-data.yml
