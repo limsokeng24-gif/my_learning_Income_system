@@ -1,5 +1,6 @@
 package com.school_management.overseas_language_centre.security;
 
+import com.school_management.overseas_language_centre.feature.intergration.redis.RedisService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,12 +15,18 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+
+import static com.school_management.overseas_language_centre.feature.auth.service.impl.TokenServiceImpl.TOKEN_KEY_PREFIX;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
+    // request ម្តង Filter ម្តង
+    //Stateless
     private final JwtService jwtService;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,6 +43,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
         String username = jwtService.getUsernameFromToken(token);
+        if (!isCurrentSession(username,token)) {
+            chain.doFilter(request, response);
+            return;
+        }
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(username, null, List.of());
@@ -54,5 +65,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return authHeader.substring(BEARER_PREFIX.length());
         }
         return null;
+    }
+    // true . false
+    private boolean isCurrentSession(String username, String token) {
+        try {
+            Optional<String> store = redisService.get(TOKEN_KEY_PREFIX + username);
+            return store.isPresent() && store.get().equals(token);
+        }catch (Exception e){
+            return false;
+        }
     }
 }
