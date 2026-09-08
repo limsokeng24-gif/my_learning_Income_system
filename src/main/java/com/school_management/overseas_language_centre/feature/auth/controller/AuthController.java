@@ -1,6 +1,7 @@
 package com.school_management.overseas_language_centre.feature.auth.controller;
 
 import com.school_management.overseas_language_centre.feature.auth.dto.request.LoginRequest;
+import com.school_management.overseas_language_centre.feature.auth.dto.request.RefreshTokenRequest;
 import com.school_management.overseas_language_centre.feature.auth.dto.response.AuthResponse;
 import com.school_management.overseas_language_centre.feature.auth.service.AuthService;
 import jakarta.validation.Valid;
@@ -21,5 +22,12 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse login = authService.login(request);
         return ResponseEntity.ok(login);
+    }
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(
+            @Valid @RequestBody RefreshTokenRequest request
+    ) {
+        AuthResponse response = authService.refresh(request);
+        return ResponseEntity.ok(response);
     }
 }

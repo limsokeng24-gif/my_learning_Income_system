@@ -18,6 +18,7 @@ import java.util.Date;
 public class JwtService {
     private final JwtProperty jwtProperty;
 
+
     /** Build a signed access token with {@code sub=username} and configured TTL. */
     public String generateToken(String username) {
         // Derive HMAC key from configured secret (must be long enough for HS256)
@@ -26,10 +27,31 @@ public class JwtService {
         Date expiry = new Date(now.getTime() + jwtProperty.getExpirationMs());
 
         return Jwts.builder()
-                .subject(username)   // becomes the authenticated principal name
+                .subject(username)
+                .claim("type", "access")// becomes the authenticated principal name
                 .issuedAt(now)       // iat claim
                 .expiration(expiry)  // exp claim — filter rejects tokens past this instant
                 .signWith(key)       // HMAC-SHA256 signature
+                .compact();
+    }
+    public String generateRefreshToken(String username) {
+
+        SecretKey key = Keys.hmacShaKeyFor(
+                jwtProperty.getSecret().getBytes(StandardCharsets.UTF_8)
+        );
+
+        Date now = new Date();
+
+        Date expiry = new Date(
+                now.getTime() + jwtProperty.getRefreshExpirationMs()
+        );
+
+        return Jwts.builder()
+                .subject(username)
+                .claim("type", "refresh")
+                .issuedAt(now)
+                .expiration(expiry)
+                .signWith(key)
                 .compact();
     }
 
@@ -59,7 +81,36 @@ public class JwtService {
         }
     }
 
+    //use for validate on refresh token
+    public boolean validateRefreshToken(String token) {
+
+        try {
+
+            SecretKey key = Keys.hmacShaKeyFor(
+                    jwtProperty.getSecret().getBytes(StandardCharsets.UTF_8)
+            );
+
+            Claims claims = Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+            return "refresh".equals(claims.get("type", String.class));
+
+        } catch (Exception e) {
+
+            return false;
+        }
+    }
+
     public Duration getExpirationDuration() {
         return Duration.ofMillis(jwtProperty.getExpirationMs());
+    }
+
+    public Duration getRefreshExpirationDuration() {
+        return Duration.ofMillis(
+                jwtProperty.getRefreshExpirationMs()
+        );
     }
 }

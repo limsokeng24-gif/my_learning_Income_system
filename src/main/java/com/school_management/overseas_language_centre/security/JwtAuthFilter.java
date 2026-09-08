@@ -30,7 +30,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws ServletException, IOException {
         //eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4NGUzMTRhMy00YTNiLTQ1ODktYTFhZi00ZTA2NjJiY2U2NzUiLCJpYXQiOjE3ODc2NzA3MTgsImV4cCI6MTc4Nzc1NzExOH0.IxGVEyPIfRNLfMOF1kIv5UFm1JFVUCi4-HxJ0eGaiX8Y5X70Zozp-iti3yCtbtl68YdrRqkrwPt8XAbB6TgQpw
         System.out.println("Request");
         System.out.println(request);

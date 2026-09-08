@@ -2,6 +2,7 @@ package com.school_management.overseas_language_centre.feature.auth.service.impl
 
 import com.school_management.overseas_language_centre.entity.User;
 import com.school_management.overseas_language_centre.feature.auth.dto.request.LoginRequest;
+import com.school_management.overseas_language_centre.feature.auth.dto.request.RefreshTokenRequest;
 import com.school_management.overseas_language_centre.feature.auth.dto.response.AuthResponse;
 import com.school_management.overseas_language_centre.feature.auth.service.AuthService;
 import com.school_management.overseas_language_centre.feature.auth.service.TokenService;
@@ -22,5 +23,10 @@ public class AuthServiceImpl implements AuthService {
         User user = userValidator.validateLoginCredentials(request.getUsername(), request.getPassword());
 
         return tokenService.issue(userMapper.toResponse(user));
+    }
+
+    @Override
+    public AuthResponse refresh(RefreshTokenRequest request) {
+        return tokenService.refresh(request.getRefreshToken());
     }
 }

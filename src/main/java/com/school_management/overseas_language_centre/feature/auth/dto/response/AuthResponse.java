@@ -14,15 +14,25 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     private String token;
     private String type;
+    private String refreshToken;
 
     private UserResponse user;
 
     //we use of instead of new
-    public static AuthResponse of(String token, UserResponse user) {
-        return AuthResponse.builder()
-                .token(token)
-                .type("Bearer")
-                .user(user)
-                .build();
+    public static AuthResponse of(
+            String token,
+            String refreshToken,
+            UserResponse user) {
+//        return AuthResponse.builder()
+//                .token(token)
+//                .refreshToken(refreshToken)
+//                .user(user)
+//                .build();
+            AuthResponse response = new AuthResponse();
+            response.setToken(token);
+            response.setType("Bearer");
+            response.setRefreshToken(refreshToken);
+            response.setUser(user);
+            return response;
     }
 }

@@ -13,4 +13,7 @@ public class JwtProperty {
 
     /* Access-token lifetime in milliseconds (default 24 hour).*/
     private long expirationMs = 86400000L; //24hour //expiration is from application.yml
+
+    /* Refresh token use for */
+    private long refreshExpirationMs;
 }
