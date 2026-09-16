@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration // register as a Spring bean
 @ConfigurationProperties(prefix = "jwt") //map jwt.secret, jwt.expiration-ms
 @Data //getter //setter //binding
-public class JwtProperty {
+public class JwtProperties {
     /* HMAC signing key - must match between sign and verify. */
     private String secret; // secret this one is from application.yml
 

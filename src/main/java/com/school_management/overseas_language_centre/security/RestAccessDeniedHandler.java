@@ -15,17 +15,18 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class RestAccessDeniedHandler  implements AccessDeniedHandler {
+    // JSON ↔ Java Object
     private final ObjectMapper objectMapper;
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        //use for filter 403
-        SecurityErrorWriter.write(objectMapper,
+        // 403
+        SecurityErrorWriter.write(
+                objectMapper,
                 response,
                 HttpStatus.FORBIDDEN,
-                "You do not have permision to perform this action",
+                "You do not have permission to perform this action.",
                 request.getRequestURI());
-
     }
 }

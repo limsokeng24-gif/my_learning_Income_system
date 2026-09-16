@@ -1,7 +1,7 @@
 package com.school_management.overseas_language_centre.security;
 
 
-import com.school_management.overseas_language_centre.property.JwtProperty;
+import com.school_management.overseas_language_centre.property.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -16,7 +16,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    private final JwtProperty jwtProperty;
+    private final JwtProperties jwtProperty;
 
 
     /** Build a signed access token with {@code sub=username} and configured TTL. */

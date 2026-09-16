@@ -33,3 +33,22 @@ jwt:
   secret: ${JWT_SECRET:change-me-to-a-long-random-secret-at-least-32-bytes-please}
   expiration-ms: ${JWT_EXPIRATION_MS:86400000} #use for 15minute
   refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000} #use for 7days
+
+captcha:
+  enabled: ${CAPTCHA_ENABLED:true}           # false → generate returns enabled=false
+  length: ${CAPTCHA_LENGTH:6}                # characters in the image code
+  ttl-minutes: ${CAPTCHA_TTL_MINUTES:3}      # Redis key lifetime
+  master-code: ${CAPTCHA_MASTER_CODE:}       # optional dev bypass (leave empty in prod)
+
+# AES-256 key for encrypting captcha codes in Redis
+# Generate a new one: openssl rand -base64 32
+encryption:
+  secret-key: ${ENCRYPTION_SECRET_KEY:GoYeAriehFXooFM12206sP02E646czNwD8wi3mB4RL8=}
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket: ${MINIO_BUCKET:urp-redis}
+  max-size-mb: ${MINIO_MAX_SIZE_MB:5}
+  create-bucket-if-missing: ${MINIO_CREATE_BUCKET:true}
