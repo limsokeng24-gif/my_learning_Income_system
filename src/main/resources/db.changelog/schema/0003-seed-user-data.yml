@@ -1,7 +1,6 @@
 databaseChangeLog:
-
   - changeSet:
-      id: 0003-seed-admin-user
+      id: 003-seed-admin-user
       author: jpa
       preConditions:
         onFail: MARK_RAN

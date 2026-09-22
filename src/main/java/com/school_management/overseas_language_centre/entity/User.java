@@ -26,5 +26,7 @@ public class User {
 
     private Boolean enabled;
 
+    @Column(name = "profile_image_key")
+    private String profileImageKey;
 
 }

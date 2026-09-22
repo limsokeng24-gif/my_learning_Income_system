@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db.changelog/schema/0002_create_user_table.yml
   - include:
       file: db.changelog/schema/0003-seed-user-data.yml
+  - include:
+      file: db.changelog/schema/000A_add_profile_image_key_to_user.yml

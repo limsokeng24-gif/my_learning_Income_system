@@ -2,8 +2,11 @@ package com.school_management.overseas_language_centre.feature.intergration.file
 
 import com.school_management.overseas_language_centre.feature.intergration.fileStorage.FileStorageService;
 import com.school_management.overseas_language_centre.property.MinioProperties;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
+import io.minio.http.Method;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,10 +16,12 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
 public class FileStorageServiceImpl implements FileStorageService {
+
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
 
@@ -68,10 +73,12 @@ public class FileStorageServiceImpl implements FileStorageService {
                     .contentType(contentType)
                     .build());
         } catch (Exception e) {
-//            log.error("MinIO upload failed for key {}: {}", objectKey, e.getMessage());
+          //   log.error("MinIO upload failed for key {}: {}", objectKey, e.getMessage());
             throw new ValidationException("Could not upload the image. Please try again.");
         }
-        return "";
+        // IMPORTANT:
+        // Return MinIO object key
+        return objectKey;
     }
 
     // PNG -> png
@@ -88,11 +95,80 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Override
     public void deleteObject(String objectKeyOrUrl) {
+        if (objectKeyOrUrl == null || objectKeyOrUrl.isBlank()) {
+            return;
+        }
+
+        String objectKey = extractObjectKey(objectKeyOrUrl);
+
+        try {
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(minioProperties.getBucket())
+                            .object(objectKey)
+                            .build()
+            );
+
+        } catch (Exception e) {
+            throw new ValidationException(
+                    "Could not delete the image."
+            );
+        }
 
     }
 
     @Override
     public String getFileUrl(String objectKeyOrUrl) {
-        return "";
+        if (objectKeyOrUrl == null || objectKeyOrUrl.isBlank()) {
+            return null;
+        }
+
+        String objectKey = extractObjectKey(objectKeyOrUrl);
+
+        try {
+
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .method(Method.GET)
+                            .bucket(minioProperties.getBucket())
+                            .object(objectKey)
+                            .expiry(1, TimeUnit.HOURS)
+                            .build()
+            );
+
+        } catch (Exception e) {
+
+            throw new ValidationException(
+                    "Could not generate image URL."
+            );
+        }
+
+    }
+
+    private String extractObjectKey(String objectKeyOrUrl) {
+
+        // If PostgreSQL contains:
+        // users/15/abc.jpg
+        //
+        // just return it.
+
+        if (!objectKeyOrUrl.startsWith("http://")
+                && !objectKeyOrUrl.startsWith("https://")) {
+            return objectKeyOrUrl;
+        }
+
+        // If database contains a full MinIO URL,
+        // remove the endpoint and bucket.
+        String prefix =
+                minioProperties.getEndpoint()
+                        + "/"
+                        + minioProperties.getBucket()
+                        + "/";
+
+        if (objectKeyOrUrl.startsWith(prefix)) {
+            return objectKeyOrUrl.substring(prefix.length());
+        }
+
+        return objectKeyOrUrl;
     }
 }
