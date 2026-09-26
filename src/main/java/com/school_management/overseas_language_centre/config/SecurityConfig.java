@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/test-image/**").permitAll()
                         .requestMatchers("/api/user/**").permitAll()
-
+                        .requestMatchers("/api/otp/**").permitAll()
                         // Protected endpoint
                         // user role
                         .anyRequest().authenticated()
