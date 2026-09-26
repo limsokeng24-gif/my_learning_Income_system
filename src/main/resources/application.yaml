@@ -31,21 +31,6 @@ spring:
       password:
       timeout: 2s
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: astergift32@gmail.com
-    password: gfti yldn cade xfmk
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true  # required for port 587 (TLS upgrade)
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
-
 jwt:
   secret: ${JWT_SECRET:change-me-to-a-long-random-secret-at-least-32-bytes-please}
   expiration-ms: ${JWT_EXPIRATION_MS:86400000} #use for 15minute
