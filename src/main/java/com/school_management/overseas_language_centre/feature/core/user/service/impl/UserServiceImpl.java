@@ -1,23 +1,22 @@
 package com.school_management.overseas_language_centre.feature.core.user.service.impl;
 
 import com.school_management.overseas_language_centre.entity.User;
+import com.school_management.overseas_language_centre.feature.auth.validator.AuthValidator;
 import com.school_management.overseas_language_centre.feature.core.user.dto.request.UserRequest;
 import com.school_management.overseas_language_centre.feature.core.user.dto.response.UserResponse;
 import com.school_management.overseas_language_centre.feature.core.user.mapper.UserMapper;
 import com.school_management.overseas_language_centre.feature.core.user.normalizer.UserNormalizer;
 import com.school_management.overseas_language_centre.feature.core.user.repository.UserRepository;
 import com.school_management.overseas_language_centre.feature.core.user.service.UserService;
+import com.school_management.overseas_language_centre.feature.core.user.validator.UserValidator;
 import com.school_management.overseas_language_centre.feature.intergration.fileStorage.FileStorageService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 
 @Service
@@ -26,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserNormalizer userNormalizer;
+    private final UserValidator userValidator;
     private final FileStorageService fileStorageService;
     private final DataFormatter dataFormatter = new DataFormatter();
     private final UserMapper userMapper;
@@ -34,13 +34,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse create(UserRequest request) {
+        //normalize
         userNormalizer.normalize(request);
+        //validator
+        userValidator.validateCreate(request);
         // 2. Check if email already exists
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalArgumentException(
-                    "Email already exists"
-            );
-        }// Request DTO -> Entity
+         // Request DTO -> Entity
         User entity = userMapper.toEntity(request);
         // Encode password
         entity.setPasswordHash(

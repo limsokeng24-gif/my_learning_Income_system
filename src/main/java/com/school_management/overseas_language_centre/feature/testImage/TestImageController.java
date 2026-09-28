@@ -1,6 +1,5 @@
-package com.school_management.overseas_language_centre.feature;
+package com.school_management.overseas_language_centre.feature.testImage;
 
-import com.school_management.overseas_language_centre.feature.core.TestImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

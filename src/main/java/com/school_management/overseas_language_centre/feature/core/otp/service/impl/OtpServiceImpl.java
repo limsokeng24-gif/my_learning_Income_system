@@ -26,6 +26,8 @@ public class OtpServiceImpl implements OtpService {
         otpNormalizer.normalize(request);
         //Get normalized email
         String email = request.getEmail();
+        // Now email is trimmed/normalized
+        System.out.println("Email = [" + email + "]");
         //2 validator
         // 1. Check email exists in database
         boolean exists = userRepository.existsByUsername(request.getEmail());
@@ -35,7 +37,6 @@ public class OtpServiceImpl implements OtpService {
             );
         }
         // 4 encryption
-
 
         // generate code
         String code = otpGenerator.generate();

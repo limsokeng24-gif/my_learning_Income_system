@@ -1,4 +1,4 @@
-package com.school_management.overseas_language_centre.feature.core;
+package com.school_management.overseas_language_centre.feature.testImage;
 
 import com.school_management.overseas_language_centre.feature.intergration.fileStorage.FileStorageService;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
-public class TestImageServiceImp implements TestImageService{
+public class TestImageServiceImp implements TestImageService {
     private final FileStorageService fileStorageService;
     private static final String PROFILE_IMAGE_DIR = "profiles";
     @Override

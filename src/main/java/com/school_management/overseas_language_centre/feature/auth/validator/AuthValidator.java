@@ -1,6 +1,7 @@
 package com.school_management.overseas_language_centre.feature.auth.validator;
 
 import com.school_management.overseas_language_centre.entity.User;
+import com.school_management.overseas_language_centre.feature.core.user.dto.request.UserRequest;
 import com.school_management.overseas_language_centre.feature.core.user.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidator {
+public class AuthValidator {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 

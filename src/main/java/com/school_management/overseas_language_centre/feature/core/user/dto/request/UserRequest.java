@@ -16,8 +16,10 @@ public class UserRequest {
     private String username;
     @Size(max = 50, message = "Nickname too long")
     private String nickName;
-    @NotBlank(message = "Password cannot be blank") //when we use this validation //we need to put @Valid in roleController for use it
+    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
     private String passwordHash;
+    //when we use this validation //we need to put @Valid in roleController for use it
 
     private Boolean enabled;
 
