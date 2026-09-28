@@ -38,7 +38,6 @@ public class OtpController {
     public ResponseEntity<BaseApi<Void>> verifyOtp(
             @Valid @RequestBody VerifyOtpRequest request
     ) {
-
         otpService.verifyOtp(request);
 
         return ResponseEntity.ok(

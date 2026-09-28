@@ -18,7 +18,6 @@ databaseChangeLog:
                   type: INT
                   constraints:
                     nullable: false
-                    unique: true
                     foreignKeyName: fk_otp_user
                     references: users(id)
               - column:
