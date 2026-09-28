@@ -1,5 +1,6 @@
 package com.school_management.overseas_language_centre.feature.core.user.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    @NotBlank(message = "Username cannot be blank") //when we use this validation //we need to put @Valid in roleController for use it
+    @NotBlank(message = "Email is required") //when we use this validation //we need to put @Valid in roleController for use it
+    @Email(message = "Username must be a valid email address")
     private String username;
     @Size(max = 50, message = "Nickname too long")
     private String nickName;

@@ -35,7 +35,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse create(UserRequest request) {
         userNormalizer.normalize(request);
-        // Request DTO -> Entity
+        // 2. Check if email already exists
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new IllegalArgumentException(
+                    "Email already exists"
+            );
+        }// Request DTO -> Entity
         User entity = userMapper.toEntity(request);
         // Encode password
         entity.setPasswordHash(
