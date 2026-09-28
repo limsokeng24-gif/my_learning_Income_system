@@ -72,7 +72,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 //            log.error("MinIO upload failed for key {}: {}", objectKey, e.getMessage());
             throw new ValidationException("Could not upload the image. Please try again.");
         }
-        return "";
+        return objectKey;
     }
 
     // PNG -> png
