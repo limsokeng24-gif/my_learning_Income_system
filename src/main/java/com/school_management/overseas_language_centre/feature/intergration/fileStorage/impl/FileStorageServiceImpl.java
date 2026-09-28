@@ -4,6 +4,7 @@ import com.school_management.overseas_language_centre.feature.intergration.fileS
 import com.school_management.overseas_language_centre.property.MinioProperties;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -68,9 +69,10 @@ public class FileStorageServiceImpl implements FileStorageService {
                     .contentType(contentType)
                     .build());
         } catch (Exception e) {
-          //   log.error("MinIO upload failed for key {}: {}", objectKey, e.getMessage());
+//            log.error("MinIO upload failed for key {}: {}", objectKey, e.getMessage());
             throw new ValidationException("Could not upload the image. Please try again.");
         }
+        return "";
     }
 
     // PNG -> png
@@ -87,10 +89,36 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Override
     public void deleteObject(String objectKeyOrUrl) {
+        String key = minioProperties.toObjectKey(objectKeyOrUrl);
+        if (key == null || key.isBlank()){
+            return;
+        }
 
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(minioProperties.getBucket())
+                    .object(key)
+                    .build());
+
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
     public String getFileUrl(String objectKeyOrUrl) {
+        String key = minioProperties.toObjectKey(objectKeyOrUrl);
+        if (key == null || key.isBlank()) {
+            return null;
         }
-        }
+        return minioProperties.resolvedEndpoint() + "/" + minioProperties.getBucket() + "/" + key;
+    }
+}
+
+//Upload File ជា Chunk
+//PDF 400MB
+// chunk 1 = 2MB
+// chunk 2 = 2MB
+
+// CHunk n - 400MB
+// Upload file as Chunk in spring boot

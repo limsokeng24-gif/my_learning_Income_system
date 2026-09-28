@@ -1,17 +1,10 @@
 package com.school_management.overseas_language_centre.feature.core.user.service.impl;
 
-import com.school_management.overseas_language_centre.entity.Role;
 import com.school_management.overseas_language_centre.entity.User;
-import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
-import com.school_management.overseas_language_centre.feature.core.role.dto.request.RoleRequest;
-import com.school_management.overseas_language_centre.feature.core.role.mapper.RoleMapper;
-import com.school_management.overseas_language_centre.feature.core.role.normalizer.RoleNormalizer;
-import com.school_management.overseas_language_centre.feature.core.role.repository.RoleRepository;
-import com.school_management.overseas_language_centre.feature.core.role.validator.RoleValidator;
 import com.school_management.overseas_language_centre.feature.core.user.dto.request.UserRequest;
 import com.school_management.overseas_language_centre.feature.core.user.dto.response.UserResponse;
 import com.school_management.overseas_language_centre.feature.core.user.mapper.UserMapper;
-import com.school_management.overseas_language_centre.feature.core.user.nomarlizer.UserNormalizer;
+import com.school_management.overseas_language_centre.feature.core.user.normalizer.UserNormalizer;
 import com.school_management.overseas_language_centre.feature.core.user.repository.UserRepository;
 import com.school_management.overseas_language_centre.feature.core.user.service.UserService;
 import com.school_management.overseas_language_centre.feature.intergration.fileStorage.FileStorageService;
