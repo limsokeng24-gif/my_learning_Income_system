@@ -53,7 +53,7 @@ jwt:
   refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000} #use for 7days
 
 captcha:
-  enabled: ${CAPTCHA_ENABLED:true}           # false → generate returns enabled=false
+  enabled: ${CAPTCHA_ENABLED:false}           # false → generate returns enabled=false
   length: ${CAPTCHA_LENGTH:6}                # characters in the image code
   ttl-minutes: ${CAPTCHA_TTL_MINUTES:3}      # Redis key lifetime
   master-code: ${CAPTCHA_MASTER_CODE:}       # optional dev bypass (leave empty in prod)
@@ -70,3 +70,9 @@ minio:
   bucket: ${MINIO_BUCKET:urp-redis}
   max-size-mb: ${MINIO_MAX_SIZE_MB:5}
   create-bucket-if-missing: ${MINIO_CREATE_BUCKET:true}
+
+otp:
+  secret-key: ${OTP_SECRET_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+  ttl-minutes: ${OTP_TTL_MINUTES:10}           # code validity window
+  max-send-count: ${OTP_MAX_SEND_COUNT:5}      # lockout after N sends
+  cooldown-minutes: ${OTP_COOLDOWN_MINUTES:5}  # min gap between resends

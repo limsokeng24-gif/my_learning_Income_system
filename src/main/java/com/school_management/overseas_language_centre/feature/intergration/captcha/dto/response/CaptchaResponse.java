@@ -10,3 +10,4 @@ public class CaptchaResponse {
     private String imageBase64;
     private boolean enabled;
 }
+

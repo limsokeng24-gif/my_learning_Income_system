@@ -4,6 +4,7 @@ import com.school_management.overseas_language_centre.feature.auth.dto.request.L
 import com.school_management.overseas_language_centre.feature.auth.dto.request.RefreshTokenRequest;
 import com.school_management.overseas_language_centre.feature.auth.dto.response.AuthResponse;
 import com.school_management.overseas_language_centre.feature.auth.service.AuthService;
+import com.school_management.overseas_language_centre.feature.intergration.captcha.service.CaptchaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+    private final CaptchaService captchaService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {

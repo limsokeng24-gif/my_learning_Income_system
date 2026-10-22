@@ -5,4 +5,6 @@ import com.school_management.overseas_language_centre.feature.intergration.captc
 public interface CaptchaService {
     CaptchaResponse generate();
     void validate(String captchaId, String captchaData);
+
+
 }

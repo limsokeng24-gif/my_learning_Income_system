@@ -2,6 +2,8 @@ package com.school_management.overseas_language_centre.feature.core.user.service
 
 import com.school_management.overseas_language_centre.entity.User;
 import com.school_management.overseas_language_centre.feature.auth.validator.AuthValidator;
+import com.school_management.overseas_language_centre.feature.core.role.dto.filter.RoleFilter;
+import com.school_management.overseas_language_centre.feature.core.user.dto.filter.UserFilter;
 import com.school_management.overseas_language_centre.feature.core.user.dto.request.UserRequest;
 import com.school_management.overseas_language_centre.feature.core.user.dto.response.UserResponse;
 import com.school_management.overseas_language_centre.feature.core.user.mapper.UserMapper;
@@ -17,6 +19,8 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @Service
@@ -66,6 +70,12 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
 
     }
+
+    @Override
+    public List<UserResponse> getAll(UserFilter filter) {
+        return List.of();
+    }
+
 
     //uploadImage
     @Override

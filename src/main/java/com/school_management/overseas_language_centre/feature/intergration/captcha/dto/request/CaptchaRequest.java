@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class CaptchaRequest {
+    @NotBlank
     private String captchaId;
     @NotBlank
     private String captchaData;

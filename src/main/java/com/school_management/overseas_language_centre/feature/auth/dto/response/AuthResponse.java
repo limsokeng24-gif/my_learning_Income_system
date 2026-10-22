@@ -15,7 +15,6 @@ public class AuthResponse {
     private String token;
     private String type;
     private String refreshToken;
-
     private UserResponse user;
 
     //we use of instead of new

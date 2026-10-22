@@ -7,4 +7,5 @@ import com.school_management.overseas_language_centre.feature.auth.dto.response.
 public interface AuthService {
     AuthResponse login(LoginRequest request);
     AuthResponse refresh(RefreshTokenRequest request);
+
 }
